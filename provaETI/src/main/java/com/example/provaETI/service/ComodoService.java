@@ -30,6 +30,16 @@ public class ComodoService {
         return comodoRepository.save(comodo);
     }   
 
+    public Comodo atualizar(Long id, Comodo novoComodo){
+        return comodoRepository.findById(id)
+            .map(comodo -> {
+                comodo.setNome(novoComodo.getNome());
+                comodo.setImovel(novoComodo.getImovel());
+                return comodoRepository.save(comodo);
+            })
+            .orElseThrow(() -> new RuntimeException("Comodo não encontrado com id: " + id));
+    }
+
     public void deletar(Long id) {
         comodoRepository.deleteById(id);
     }

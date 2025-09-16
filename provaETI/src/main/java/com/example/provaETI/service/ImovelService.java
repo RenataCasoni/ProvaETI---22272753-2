@@ -10,7 +10,6 @@ import com.example.provaETI.repository.ImovelRepository;
 
 @Service
 public class ImovelService {
-   
     private final ImovelRepository imovelRepository;
 
     public ImovelService(ImovelRepository imovelRepository) {
@@ -28,6 +27,17 @@ public class ImovelService {
     public Imovel salvar(Imovel imovel) {
         return imovelRepository.save(imovel);
     }   
+
+     public Imovel atualizar(Long id, Imovel novoImovel) {
+        return imovelRepository.findById(id)
+                .map(imovel -> {
+                    imovel.setDescricao(novoImovel.getDescricao());
+                    imovel.setEndereco(novoImovel.getEndereco());
+                    imovel.setDataCompra(novoImovel.getDataCompra());
+                    return imovelRepository.save(imovel);
+                })
+                .orElseThrow(() -> new RuntimeException("Imóvel não encontrado com id: " + id));
+    }
 
     public void deletar(Long id) {
         imovelRepository.deleteById(id);

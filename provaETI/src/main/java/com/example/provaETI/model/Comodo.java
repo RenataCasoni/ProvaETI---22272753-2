@@ -1,12 +1,10 @@
 package com.example.provaETI.model;
 
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 
@@ -15,16 +13,13 @@ public class Comodo {
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-
     private Long id;
-    private String nome;
-    private List <Comodo> comodos;
 
-    //um comodo pertence a um imovel
+    private String nome;
 
     //varios comodos podem pertencer a um imovel
     @ManyToOne
-    @JoinTable(name = "imovel_id")
+    @JoinColumn(name = "imovel_id")
     private Imovel imovel;
 
    
@@ -35,7 +30,7 @@ public class Comodo {
         this.id =id;
     }
 
-     public String nome(){
+     public String getNome(){
         return nome;
     }
 
@@ -49,14 +44,6 @@ public class Comodo {
 
     public void setImovel(Imovel imovel) {
         this.imovel = imovel;
-    }
-
-    public List<Comodo> getComodos() {
-        return comodos;
-    }
-
-    public void setComodos(List<Comodo> comodos) {
-        this.comodos = comodos;
     }
 
   }

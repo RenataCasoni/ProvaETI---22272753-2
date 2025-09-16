@@ -2,11 +2,11 @@ package com.example.provaETI.controller;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,10 +31,9 @@ public class ComodoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Comodo> buscarPorId(@PathVariable Long id) {
+    public Comodo buscarPorId(@PathVariable Long id) {
         return comodoService.buscarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new RuntimeException("Comodo não encontrado com id: " + id));
     }   
 
     @PostMapping
@@ -42,10 +41,14 @@ public class ComodoController {
         return comodoService.salvar(comodo);
     }
 
+    @PutMapping("/{id}")
+    public Comodo atualizar(@PathVariable Long id, @RequestBody Comodo comodoAtualizado) {
+        return comodoService.atualizar(id, comodoAtualizado);
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+    public void deletar(@PathVariable Long id) {
         comodoService.deletar(id);
-        return ResponseEntity.noContent().build();
     }
 }
 

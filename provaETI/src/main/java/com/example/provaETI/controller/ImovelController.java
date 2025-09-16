@@ -7,14 +7,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.provaETI.model.Imovel;
 import com.example.provaETI.service.ImovelService;
-
-
 
 @RestController
 @RequestMapping("/imovel")
@@ -43,6 +42,17 @@ public class ImovelController {
     public Imovel criar(@RequestBody Imovel imovel) {
         return imovelService.salvar(imovel);
     }
+
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<Imovel> atualizar(@PathVariable Long id, @RequestBody Imovel imovel) {
+        try {
+            return ResponseEntity.ok(imovelService.atualizar(id, imovel));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
