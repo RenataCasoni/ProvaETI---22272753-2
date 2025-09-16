@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Imóveis</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="imovel.js" defer></script>
+</head>
+
+<body>
+    <h1>Gerenciar Imóveis</h1>
+    <h2>Cadastrar Imóvel</h2>
+    <form id="imovelForm">
+        <input type="text" id="endereco" name="endereco" placeholder="Endereço" required>
+        <input type="text" id="descricao" name="descricao" placeholder="Descrição" required>
+        <input type="date" id="datacompra" name="datacompra" placeholder="Data de Compra" required>
+        <button type="submit">Salvar</button>
+    </form>
+
+    <h2>Lista de Imóveis</h2>
+    <ul id="imovelList"></ul>
+
+</body>
+
+</html>
